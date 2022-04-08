@@ -2,6 +2,7 @@
 #define _CORE_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define ERR_NULL_PTR 1
 #define ERR_FILE_ACCESS 2
@@ -11,6 +12,7 @@ struct Tree {
     struct TreeNode *root;
     uint64_t n_nodes;
     struct TreeNode **nodes;
+    bool up_calculated;
 };
 
 int tree_initialize(struct Tree *tree, const char *fn);

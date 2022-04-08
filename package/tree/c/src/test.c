@@ -9,18 +9,20 @@ int main(void) {
     }
     double max_up = 0;
     double max_down = 0;
-    ret = tree_max_sum_down(&tree, &max_down);
-    if (ret) {
-        goto cleanup;
-    }
     for (int i = 0; i < 10; ++i) {
-        printf("iter: %d max_down: %lf\n", i, max_down);
         ret = tree_max_sum_down(&tree, &max_down);
+        printf("iter: %d max_down: %lf\n", i, max_down);
         if (ret) {
             goto cleanup;
         }
     }
-    printf("max_up: %lf\n", max_up);
+    for (int i = 0; i < 10; ++i) {
+        ret = tree_max_sum_up(&tree, &max_up);
+        printf("iter: %d max_up: %lf\n", i, max_up);
+        if (ret) {
+            goto cleanup;
+        }
+    }
 cleanup:
     switch (ret) {
     case ERR_NULL_PTR:
