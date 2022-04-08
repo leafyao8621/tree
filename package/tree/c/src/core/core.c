@@ -66,16 +66,16 @@ int tree_max_sum_down(struct Tree *tree, double *out) {
                 cur->left->down_calculated = true;
                 cur->left->down_sum =
                     cur->down_sum + cur->left->value;
-                *(stack_end++) = cur->left;
             }
+            *(stack_end++) = cur->left;
         }
         if (cur->right) {
             if (!cur->right->down_calculated) {
                 cur->right->down_calculated = true;
                 cur->right->down_sum =
                     cur->down_sum + cur->right->value;
-                *(stack_end++) = cur->right;
             }
+            *(stack_end++) = cur->right;
         }
     }
     free(stack);
