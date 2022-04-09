@@ -103,7 +103,7 @@ int tree_max_sum_up(struct Tree *tree, double *out) {
         struct TreeNode *cur = stack_end[-1];
         bool left = false;
         bool right = false;
-        if (tree->up_calculated && cur->up_calculated) {
+        if (tree->up_calculated) {
             --stack_end;
         }
         if (cur->left && !cur->left->visited) {
@@ -126,8 +126,6 @@ int tree_max_sum_up(struct Tree *tree, double *out) {
         }
         if (!cur->up_calculated && left && right) {
             cur->up_sum += cur->value;
-            cur->up_calculated = true;
-        } else if (!cur->left && !cur->right) {
             cur->up_calculated = true;
         }
         if (!tree->up_calculated && cur->up_calculated) {
