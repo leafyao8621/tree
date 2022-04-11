@@ -28,11 +28,15 @@ int tree_initialize(struct Tree *tree, const char *fn) {
         (*iter)->down_calculated = false;
         (*iter)->up_calculated = false;
     }
+    double min = 0;
     iter = tree->nodes;
     for (uint64_t i = 0; i < tree->n_nodes; ++i, ++iter) {
         double value;
         int64_t left, right;
         fscanf(fin, "%lf %ld %ld", &value, &left, &right);
+        if (!min || value < min) {
+            min = value;
+        }
         (*iter)->value = value;
         (*iter)->left = left >= 0 ? tree->nodes[left] : 0;
         (*iter)->right = right >= 0 ? tree->nodes[right] : 0;
@@ -42,6 +46,7 @@ int tree_initialize(struct Tree *tree, const char *fn) {
     tree->root->down_calculated = true;
     tree->root->down_sum = tree->root->value;
     tree->up_calculated = false;
+    tree->n_inf = min < 0 ? min * tree->n_nodes : -1;
     return 0;
 }
 
@@ -95,7 +100,7 @@ int tree_max_sum_up(struct Tree *tree, double *out) {
     for (uint64_t i = 0; i < tree->n_nodes; ++i, ++iter) {
         (*iter)->visited = false;
     }
-    double max = tree->root->value;
+    double max = tree->n_inf;
     struct TreeNode **stack = malloc(sizeof(struct TreeNode*) * tree->n_nodes);
     struct TreeNode **stack_end = stack;
     *(stack_end++) = tree->root;
