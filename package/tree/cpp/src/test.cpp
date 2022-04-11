@@ -8,6 +8,10 @@ int main() {
             std::cout << "iter: " << i <<
             " max_down: " << tree.max_sum_down() << '\n';
         }
+        for (int i = 0; i < 10; ++i) {
+            std::cout << "iter: " << i <<
+            " max_up: " << tree.max_sum_up() << '\n';
+        }
     } catch (Core::Tree::Err e) {
         switch (e) {
         case Core::Tree::Err::FILE_ACCESS:

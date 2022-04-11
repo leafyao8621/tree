@@ -10,9 +10,10 @@ namespace Core {
             double value;
             Node *left, *right;
             double up_sum, down_sum;
-            bool up_calculated, down_calculated;
+            bool up_calculated, down_calculated, visited;
         };
         bool up_calculated;
+        double n_inf;
         Node *root;
         std::vector<Node*> nodes;
     public:
