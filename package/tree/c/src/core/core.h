@@ -13,6 +13,7 @@ struct Tree {
     uint64_t n_nodes;
     struct TreeNode **nodes;
     bool up_calculated;
+    double n_inf;
 };
 
 int tree_initialize(struct Tree *tree, const char *fn);
