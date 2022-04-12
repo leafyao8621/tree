@@ -21,11 +21,15 @@ static PyObject* run(PyObject* self, PyObject* args) {
     }
     try {
         Core::Tree tree(fn);
+        double max_down = 0;
+        double max_up = 0;
         for (long i = 0; i < iter; ++i) {
+            max_down = tree.max_sum_down();
+            max_up = tree.max_sum_up();
             if (verbose) {
                 std::cout << "iter: " << i <<
-                " max_down: " << tree.max_sum_down() <<
-                " max_up: " << tree.max_sum_up() << '\n';
+                " max_down: " << max_down <<
+                " max_up: " << max_up << '\n';
             }
         }
     } catch (Core::Tree::Err err) {
