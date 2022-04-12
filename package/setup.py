@@ -12,5 +12,7 @@ setup(name="tree",
       version="0.1",
       packages=["tree",
                 "tree.cpp",
-                "tree.c"],
+                "tree.c",
+                "tree.native",
+                "tree.native._core"],
       ext_modules=[cpp_base, c_base])
