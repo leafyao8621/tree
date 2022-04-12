@@ -39,8 +39,15 @@ class Tree:
         self.root.down_calculated = True
         self.root.down_sum = self.root.value
         self.n_inf: float = n_nodes * minimum if minimum < 0 else -1
+        self.up_calculated: bool = False
     def max_sum_down(self):
         """_summary_
+
+        Raises:
+            Exception: _description_
+
+        Returns:
+            _type_: _description_
         """
         if (not len(self.nodes)):
             raise Exception("EMPTY_TREE")
@@ -48,7 +55,7 @@ class Tree:
         out: float = self.root.down_sum
         stack.append(self.root)
         while (len(stack)):
-            cur = stack.pop()
+            cur: TreeNode = stack.pop()
             if (cur.down_sum > out):
                 out = cur.down_sum
             if (cur.left):
@@ -61,4 +68,51 @@ class Tree:
                     cur.right.down_calculated = True
                     cur.right.down_sum = cur.down_sum + cur.right.value
                 stack.append(cur.right)
+        return out
+    def max_sum_up(self):
+        """_summary_
+
+        Raises:
+            Exception: _description_
+
+        Returns:
+            _type_: _description_
+        """
+        if (not len(self.nodes)):
+            raise Exception("EMPTY_TREE")
+        for i in self.nodes:
+            i.visited = False
+        stack: collections.deque[TreeNode] =\
+            collections.deque()
+        stack.append(self.root)
+        out: float = self.n_inf
+        while (len(stack)):
+            cur: TreeNode = stack[-1]
+            left: bool = False
+            right: bool = False
+            if (self.up_calculated):
+                stack.pop()
+            if (cur.left and not cur.left.visited):
+                if (cur.left):
+                    cur.left.visited = True
+                    stack.append(cur.left)
+            else:
+                left = True
+                if (cur.left):
+                    cur.up_sum += cur.left.up_sum
+            if (cur.right and not cur.right.visited):
+                if (cur.right):
+                    cur.right.visited = True
+                    stack.append(cur.right)
+            else:
+                right = True
+                if (cur.right):
+                    cur.up_sum += cur.right.up_sum
+            if (not cur.up_calculated and left and right):
+                cur.up_sum += cur.value
+                cur.up_calculated = True
+                stack.pop()
+            if (cur.up_calculated and cur.up_sum > out):
+                out = cur.up_sum
+        self.up_calculated = True
         return out

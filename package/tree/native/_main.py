@@ -11,5 +11,6 @@ def run(fn: str, iter: int, verbose: bool=False):
     tree: Tree = Tree(fn)
     for i in range(iter):
         max_down: float = tree.max_sum_down()
+        max_up: float = tree.max_sum_up()
         if (verbose):
-            print(f"iter: {i} max_down: {max_down}")
+            print(f"iter: {i} max_down: {max_down} max_up: {max_up}")
