@@ -27,14 +27,14 @@ class Tree:
             self.nodes: typing.List[TreeNode] =\
                 [TreeNode() for i in range(n_nodes)]
             for i in self.nodes:
-                tokens = fin.readline()
+                tokens = fin.readline().split()
                 i.value = float(tokens[0])
                 if (not minimum or i.value < minimum):
                     minimum = i.value
                 i.left =\
                     self.nodes[int(tokens[1])] if int(tokens[1]) >= 0 else None
                 i.right =\
-                    self.nodes[int(tokens[2])] if int(tokens[1]) >= 0 else None
+                    self.nodes[int(tokens[2])] if int(tokens[2]) >= 0 else None
         self.root: TreeNode = self.nodes[0]
         self.root.down_calculated = True
         self.root.down_sum = self.root.value
